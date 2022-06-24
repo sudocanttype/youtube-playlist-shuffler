@@ -1,8 +1,7 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
-const fs = require('fs')
-
+require('dotenv').config()
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -42,6 +41,6 @@ app.on('window-all-closed', function () {
 })
 
 async function handleSubmit() {
-  return "hi!"
+  console.log(process.env["YOUTUBE_API_KEY"])
 }
 
