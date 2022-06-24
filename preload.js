@@ -3,5 +3,5 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  handleSubmit: () => ipcRenderer.invoke('submit_channel')
+  handleSubmit: (search) => ipcRenderer.invoke('submit_channel', search)
 })

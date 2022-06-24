@@ -1,7 +1,10 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
+const axios = require('axios');
 require('dotenv').config()
+
+
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -23,7 +26,10 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  ipcMain.handle('submit_channel', handleSubmit)
+  ipcMain.handle('submit_channel', async (event, data) => {
+        const response = await handleSubmit(data);
+        return response
+  })
   createWindow()
 
   app.on('activate', function () {
@@ -40,7 +46,8 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
-async function handleSubmit() {
-  console.log(process.env["YOUTUBE_API_KEY"])
+async function handleSubmit(search) {
+  // console.log(process.env["YOUTUBE_API_KEY"])
+  console.log(search)
 }
 
