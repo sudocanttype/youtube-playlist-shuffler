@@ -1,6 +1,11 @@
 document.getElementById("search_button").onclick = async function(){
 	let playlistID = document.getElementById("main_search").value
+  //trigger the loading screen
+  $("#loading").fadeIn(400).css('display', 'flex')
+
 	static_vars.data = (await window.electronAPI.handleSubmit(playlistID))
+
+  $("#loading").fadeOut(200).css('display', 'flex')
 
   selectSong(0)
   document.getElementById("player").style.display = "block"
@@ -43,7 +48,6 @@ function onPlayerStateChange(event) {
   if (event.data == 0){
     nextSong()
   }
-  console.log(event.data)
 }
 
 function nextSong(){
