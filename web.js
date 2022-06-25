@@ -1,7 +1,8 @@
 document.getElementById("search_button").onclick = async function(){
 	let playlistID = document.getElementById("main_search").value
-	let songList = (await window.electronAPI.handleSubmit(playlistID))
-  player.cuePlaylist(songList)
+	static_vars.data = (await window.electronAPI.handleSubmit(playlistID))
+
+  selectSong(0)
   document.getElementById("player").style.display = "block"
 }
 window.addEventListener("keypress", function(event){
@@ -20,7 +21,7 @@ function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
     height: '390',
     width: '640',
-    videoId: 'M7lc1UVf-VE',
+    videoId: '',
     playerVars: {
       'playsinline': 1
     },
@@ -39,5 +40,36 @@ function onPlayerStateChange(event) {
   if (event.data == 5){
     event.target.playVideo()
   }
+  if (event.data == 0){
+    nextSong()
+  }
+  console.log(event.data)
 }
+
+function nextSong(){
+  const data = static_vars.data
+  const current_indexed_song = static_vars.current_indexed_song
+
+  if (current_indexed_song + 1 < data.length){
+    player.loadVideoById(data[static_vars.current_indexed_song+1]["id"])
+    static_vars.current_indexed_song += 1
+  }
+}
+
+function selectSong(num){
+  const data = static_vars.data
+
+  if (num < data.length){
+    player.loadVideoById(data[num]["id"])
+    //move q position
+    static_vars.current_indexed_song = num
+  }
+}
+
+//make global editable variables
+class static_vars{
+  data = []
+  current_indexed_song = 0
+}
+
 

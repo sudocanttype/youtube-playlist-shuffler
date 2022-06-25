@@ -71,7 +71,10 @@ async function handleSubmit(playlistID) {
 function getSinglePageVideos(json) {
   let arr = [];
   json["items"].forEach(function(v, i, a){
-    arr.push(v["contentDetails"]["videoId"])
+    let temp_dict = {}
+    temp_dict["id"] = v["snippet"]["resourceId"]["videoId"]  
+    temp_dict["title"] = v["snippet"]["title"]
+    arr.push(temp_dict)
   })
   return arr
 }
@@ -88,7 +91,7 @@ async function getMultiPageVideos(json) {
 }
 
 async function getPLData(addstring){
-  const link = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${static_vars.plID}&key=${process.env['YOUTUBE_API_KEY']}` + addstring
+  const link = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${static_vars.plID}&key=${process.env['YOUTUBE_API_KEY']}` + addstring
 
   //wait for this guy to load
   await axios.get(link).then(function (response) {
