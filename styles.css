@@ -1,3 +1,26 @@
-/* styles.css */
-
-/* Add styles here to customize the appearance of your app */
+/* dk blue #2551E8
+ * dk purple #4C0561
+ * bg green-black #002421
+ * text color #F2F2F2
+ * weird wave #007acc
+ * */
+body {
+	background-color: #050006;
+	color: #F2F2F2;
+}
+#background {
+	position: fixed;
+	bottom: 0;
+}
+#search_holder {
+	display: flex;
+	align-items: center;
+}
+#main_holder {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+#player {
+	display: none;
+}

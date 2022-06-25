@@ -40,7 +40,7 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
-  console.log("PLy6N_9yB8Qwy6LL0J7zLUyW8XNX-BPeDl")
+
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -59,9 +59,11 @@ async function handleSubmit(playlistID) {
   static_vars.plID = playlistID
   let res = await getPLData("")
   if (res["nextPageToken"]){
-    console.log( getMultiPageVideos(res))
+    let temp = shuffleSongs((await getMultiPageVideos(res)))
+    console.log(temp)
+    return temp
   } else {
-    console.log( getSinglePageVideos(res))
+    return shuffleSongs(getSinglePageVideos(res))
   }
 
 }
@@ -79,10 +81,10 @@ async function getMultiPageVideos(json) {
   let arr = []
   let temp = json
   while (temp["nextPageToken"]){
-    arr.concat(getSinglePageVideos(temp))
-    //TODO: MAKE THIS WORK -> change out temp to a new axios request using nextPageToken
+    arr = arr.concat(getSinglePageVideos(temp))
     temp = await getPLData("&pageToken="+temp["nextPageToken"])
   }
+  return arr
 }
 
 async function getPLData(addstring){
@@ -99,6 +101,10 @@ async function getPLData(addstring){
   })
 
   return static_vars.data
+}
+
+function shuffleSongs(list){
+  return list.sort( ()=>Math.random()-0.5 );
 }
 
 class static_vars {
