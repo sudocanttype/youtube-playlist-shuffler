@@ -50,20 +50,20 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
+//
+// my shit
+//
+//
+
 async function handleSubmit(playlistID) {
-  const link = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${playlistID}&key=${process.env['YOUTUBE_API_KEY']}`
-  axios.get(link).then(function (response) {
-    if (response.status != 200){
-      return response.statusText
-    }
-    let res = response.data
-    if (res["nextPageToken"]){
+  static_vars.plID = playlistID
+  let res = await getPLData("")
+  if (res["nextPageToken"]){
+    console.log( getMultiPageVideos(res))
+  } else {
+    console.log( getSinglePageVideos(res))
+  }
 
-    } else {
-      console.log( getSinglePageVideos(res))
-    }
-
-  })
 }
 
 function getSinglePageVideos(json) {
@@ -74,11 +74,34 @@ function getSinglePageVideos(json) {
   return arr
 }
 
-function getMultiPageVideos(json) {
-  let arr = [];
-  json["items"].forEach(function(v, i, a){
-    arr.push(v["contentDetails"]["videoId"])
-  })
-  return arr
+async function getMultiPageVideos(json) {
+
+  let arr = []
+  let temp = json
+  while (temp["nextPageToken"]){
+    arr.concat(getSinglePageVideos(temp))
+    //TODO: MAKE THIS WORK -> change out temp to a new axios request using nextPageToken
+    temp = await getPLData("&pageToken="+temp["nextPageToken"])
+  }
 }
 
+async function getPLData(addstring){
+  const link = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${static_vars.plID}&key=${process.env['YOUTUBE_API_KEY']}` + addstring
+
+  //wait for this guy to load
+  await axios.get(link).then(function (response) {
+    //if its not a 2xx response code, throw error
+    if (response.status / 100 != 2){
+      throw 'Error, ' + response.statusText
+    }
+    //promote the data out of this function
+    static_vars.data = response.data
+  })
+
+  return static_vars.data
+}
+
+class static_vars {
+  static plID = ""
+  static data = "" 
+}
