@@ -9,6 +9,7 @@ document.getElementById("search_button").onclick = async function(){
 
   selectSong(0)
   document.getElementById("player").style.display = "block"
+  buildQueue()
 }
 window.addEventListener("keypress", function(event){
 		if (event.key === "Enter") {
@@ -68,6 +69,22 @@ function selectSong(num){
     //move q position
     static_vars.current_indexed_song = num
   }
+}
+
+function buildQueue(){
+  let data = static_vars.data
+  const parentNode = document.getElementById("queue")
+
+  data.forEach((v, i, a) => {
+    let newNode = document.createElement("span")
+    newNode.innerHTML = v["title"] 
+    newNode.onclick = () => {
+      selectSong(i)
+    }
+    parentNode.appendChild(newNode)
+  })
+
+  
 }
 
 //make global editable variables
