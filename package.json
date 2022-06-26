@@ -1,18 +1,22 @@
 {
   "name": "youtube-playlist-shuffler",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
+  "main": "main.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "concurrently -k \"node ./bin/www\" \"npm:electron\"",
+    "electron": "wait-on tcp:3000 && electron ."
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "concurrently": "^7.2.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.0.1",
+    "electron": "^19.0.4",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "wait-on": "^6.0.1"
   }
 }
