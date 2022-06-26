@@ -1,28 +1,55 @@
 var express = require('express');
 const path = require('path');
+const Store = require('electron-store');
 
 var router = express.Router();
 const axios = require('axios');
 require('dotenv').config()
 
+const store = new Store()
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // res.render('index', { title: 'express' });
   res.sendfile(path.join(__dirname,  '..', 'views', 'index.html'));
+  
 });
 
 router.post('/submitPL', async function (req, res) {
   let inp = (req.body["id"])
   returnValues = await handleSubmit(inp)
   res.send(returnValues)
+  //make these persistant
+  store.set("prevPL", returnValues)
+  store.set("prevPL_ID", inp)
+})
+
+router.post('/getLastPL', function (req, res) {
+  let returnValues = store.get("prevPL")
+  res.send(returnValues)
+})
+
+//get and set fn for the persistant storage
+router.post('/getLastPLID', function (req, res) {
+  let returnValues = store.get("prevVidIndex")
+  res.send(returnValues || 0)
+})
+
+router.post('/getLastVideoIndex', function (req, res) {
+  let returnValues = store.get("prevVidIndex")
+  res.send(returnValues || 0)
+})
+
+router.post('/setLastVideoIndex', function (req, res) {
+  store.set("prevVidIndex", req.body['index'])
 })
 
 async function handleSubmit(playlistID) {
   static_vars.plID = playlistID
   let res = await getPLData("")
+  store.set("lastPLID", playlistID)
   if (res["nextPageToken"]){
     let temp = shuffleSongs((await getMultiPageVideos(res)))
-    console.log(temp)
     return temp
   } else {
     return shuffleSongs(getSinglePageVideos(res))

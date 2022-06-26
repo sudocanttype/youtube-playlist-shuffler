@@ -15,6 +15,9 @@ document.getElementById("search_button").onclick = async function(){
   document.getElementById("player").style.display = "block"
   buildQueue()
 }
+document.getElementById("resume").onclick = function(){
+
+}
 window.addEventListener("keypress", function(event){
 		if (event.key === "Enter") {
 			event.preventDefault();
