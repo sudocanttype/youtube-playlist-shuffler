@@ -28,6 +28,7 @@ body {
 #search_holder {
 	display: flex;
 	align-items: center;
+  justify-content: center;
 }
 #search_holder svg {
   fill: var(--dk-blue);
@@ -41,6 +42,7 @@ body {
 #main_search {
   font-size: 1.5em;
   width: 900px;
+  max-width: 90%;
   border-radius: 5px;
   border: none;
   padding: .25em 15px;
@@ -112,7 +114,7 @@ body {
   background-color: white;
   overflow: auto;
   white-space: nowrap;
-  display: flex;
+  display: none;
   flex-direction: column;
   margin-top: 2em;
   margin-left: 2em;
@@ -145,3 +147,19 @@ body {
   border-radius: 20px;
   border: transparent;
 }
+#player_controls button {
+  border: 0;
+  border-radius: 25px;
+  background-color: transparent;
+  transition: background-color .3s ease-in-out 0s;
+  width: 70px;
+  height: 70px;
+}
+
+#player_controls button:hover {
+  background-color: var(--light-blue);
+}
+#player_controls button svg{
+  margin-left: -2px;
+}
+

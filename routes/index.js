@@ -31,13 +31,13 @@ router.post('/getLastPL', function (req, res) {
 
 //get and set fn for the persistant storage
 router.post('/getLastPLID', function (req, res) {
-  let returnValues = store.get("prevVidIndex")
-  res.send(returnValues || 0)
+  let returnValues = store.get("prevPL_ID")
+  res.send(returnValues)
 })
 
 router.post('/getLastVideoIndex', function (req, res) {
-  let returnValues = store.get("prevVidIndex")
-  res.send(returnValues || 0)
+  let returnValues = store.get("prevVidIndex") || "0"
+  res.send(returnValues)
 })
 
 router.post('/setLastVideoIndex', function (req, res) {

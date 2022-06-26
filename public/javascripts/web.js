@@ -16,6 +16,21 @@ document.getElementById("search_button").onclick = async function(){
   buildQueue()
 }
 document.getElementById("resume").onclick = function(){
+  $.post("/getLastPLID", (data, status) => {
+      if(data){
+        document.getElementById("main_search").value = data
+        $.post("/getLastVideoIndex", (index) => {
+          $.post("/getLastPL", (playlistJson) => {
+            document.getElementById("player").style.display = "block"
+            static_vars.data = playlistJson
+            selectSong(index)
+            buildQueue()
+            document.getElementById("resume").style.display = "none"
+          })
+        })
+    }
+      
+})
 
 }
 window.addEventListener("keypress", function(event){
@@ -85,12 +100,14 @@ function selectSong(num){
     player.loadVideoById(data[num]["id"])
     //move q position
     static_vars.current_indexed_song = num
+    $.post("/setLastVideoIndex", {index: num}) 
   }
 }
 
 function buildQueue(){
   let data = static_vars.data
   const parentNode = document.getElementById("queue")
+  parentNode.innerHTML = ""
 
   data.forEach((v, i, a) => {
     let newNode = document.createElement("span")
@@ -100,8 +117,7 @@ function buildQueue(){
     }
     parentNode.appendChild(newNode)
   })
-
-  
+  $("#queue").slideDown(200).css('display', 'flex')
 }
 
 //make global editable variables

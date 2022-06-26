@@ -12,7 +12,7 @@
     <div id="main_holder">
       <h1>Youtube Shuffler</h1>
       <div id="search_holder">
-        <input type="text" id="main_search" value="PL2DQWTEAPB4okMGtNo7JQJWLjssl8h5Oj" placeholder="ENTER A PLAYLIST ID HERE!">
+        <input type="text" id="main_search" value="" placeholder="ENTER A PLAYLIST ID HERE!">
         <button type="button" id="search_button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.031 16.617l4.283 4.282-1.415 1.415-4.282-4.283A8.96 8.96 0 0 1 11 20c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 0 1-1.969 5.617zm-2.006-.742A6.977 6.977 0 0 0 18 11c0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7a6.977 6.977 0 0 0 4.875-1.975l.15-.15z" /></svg></button>
       </div>
     </div>
@@ -22,6 +22,11 @@
     </div>
     <div id="player"></div>
     <div id="queue"></div>
+    <div id="player_controls">
+      <button id="prev_song"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M8 11.333l10.223-6.815a.5.5 0 0 1 .777.416v14.132a.5.5 0 0 1-.777.416L8 12.667V19a1 1 0 0 1-2 0V5a1 1 0 1 1 2 0v6.333zm9 4.93V7.737L10.606 12 17 16.263z"/></svg></button>
+      <button id="pause_song"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M6 5h2v14H6V5zm10 0h2v14h-2V5z"/></svg></button>
+      <button id="next_song"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M16 12.667L5.777 19.482A.5.5 0 0 1 5 19.066V4.934a.5.5 0 0 1 .777-.416L16 11.333V5a1 1 0 0 1 2 0v14a1 1 0 0 1-2 0v-6.333zm-9-4.93v8.526L13.394 12 7 7.737z"/></svg></button>
+    </div>
     <button id="resume">Resume Last Session</button>
 
     <!-- You can also require other files to run in this process -->
