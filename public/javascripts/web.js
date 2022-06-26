@@ -3,7 +3,11 @@ document.getElementById("search_button").onclick = async function(){
   //trigger the loading screen
   $("#loading").fadeIn(400).css('display', 'flex')
 
-	static_vars.data = (await window.electronAPI.handleSubmit(playlistID))
+  try {
+    await handleSubmit(playlistID)
+  } catch (e) {
+    console.log(e)
+  }
 
   $("#loading").fadeOut(200).css('display', 'flex')
 
@@ -17,6 +21,16 @@ window.addEventListener("keypress", function(event){
 			document.getElementById("search_button").click();
 		}
 })
+
+async function handleSubmit(inp){
+  const payload = {
+    id:inp
+  }
+  console.log(payload)
+  await $.post("/submitPL", payload, (data, status) => {
+    static_vars.data = data
+  })
+}
 
 let tag = document.createElement('script')
 tag.src = "https://www.youtube.com/iframe_api";
