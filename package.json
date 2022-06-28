@@ -8,9 +8,11 @@
     "electron": "wait-on tcp:3000 && electron ."
   },
   "dependencies": {
+    "@cliqz/adblocker-electron": "^1.23.8",
     "axios": "^0.27.2",
     "concurrently": "^7.2.2",
     "cookie-parser": "~1.4.4",
+    "cross-fetch": "^3.1.5",
     "debug": "~2.6.9",
     "dotenv": "^16.0.1",
     "electron": "^19.0.4",

@@ -34,7 +34,7 @@ document.getElementById("resume").onclick = function(){
 
 }
 window.addEventListener("keypress", function(event){
-		if (event.key === "Enter") {
+		if (event.key === "Enter" && document.getElementById("main_holder").style.display != "none") {
 			event.preventDefault();
 			document.getElementById("search_button").click();
 		}
@@ -71,7 +71,6 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
-
 }
 
 function onPlayerStateChange(event) {
@@ -115,6 +114,7 @@ function selectSong(num){
 }
 
 function buildQueue(){
+  $("#main_holder").fadeOut(200)
   let data = static_vars.data
   const parentNode = document.getElementById("queue")
   parentNode.innerHTML = ""

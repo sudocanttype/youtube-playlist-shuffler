@@ -1,5 +1,7 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
+const { ElectronBlocker } = require('@cliqz/adblocker-electron')
+const fetch = require('cross-fetch')
 
 
 function createWindow () {
@@ -9,6 +11,9 @@ function createWindow () {
     height: 600,
   })
 
+  const blocker = ElectronBlocker.fromPrebuiltAdsAndTracking(fetch).then((blocker) => {
+    blocker.enableBlockingInSession(mainWindow.webContents.session);
+  });
   mainWindow.loadURL('http://localhost:3000')
 }
 
