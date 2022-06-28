@@ -120,6 +120,8 @@ body {
   }
 }
 #queue {
+  position: fixed;
+  top: calc(100% - 250px);
   width: 450px;
   height: 250px;
   background-color: white;
@@ -127,9 +129,8 @@ body {
   white-space: nowrap;
   display: none;
   flex-direction: column;
-  margin-top: 2em;
-  margin-left: 2em;
   scrollbar-width: thin;
+  overflow-x: hidden;
 
 }
 #queue span {
@@ -162,7 +163,7 @@ body {
   display: flex;
   justify-content: center;
 }
-#player_controls button {
+.player_control_buttons {
   border: 0;
   border-radius: 25px;
   background-color: transparent;
@@ -171,15 +172,20 @@ body {
   height: 70px;
 }
 
-#player_controls button:hover {
+.player_control_buttons:hover {
   background-color: var(--light-blue);
+  cursor: pointer;
 }
-#player_controls button svg{
+
+.player_control_buttons svg{
+  fill: white;
   margin-left: -2px;
 }
 
 #under_player {
-  display: flex;
+  margin-top: 15px;
+  bottom: 0;
+  display: none;
   flex-direction: row;
   align-content: center;
   justify-content: center;

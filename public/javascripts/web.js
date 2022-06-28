@@ -101,18 +101,15 @@ function nextSong(){
   const current_indexed_song = static_vars.current_indexed_song
 
   if (current_indexed_song + 1 < data.length){
-    player.loadVideoById(data[static_vars.current_indexed_song+1]["id"])
-    static_vars.current_indexed_song += 1
+    selectSong(current_indexed_song+1)
   }
 }
 
 function prevSong(){
-  const data = static_vars.data
   const current_indexed_song = static_vars.current_indexed_song
 
   if (current_indexed_song - 1 >= 0){
-    player.loadVideoById(data[static_vars.current_indexed_song-1]["id"])
-    static_vars.current_indexed_song -= 1
+    selectSong(current_indexed_song-1)
   }
 }
 
@@ -122,13 +119,13 @@ function selectSong(num){
   if (num < data.length){
     player.loadVideoById(data[num]["id"])
     //move q position
-    static_vars.current_indexed_song = num
+    static_vars.current_indexed_song = parseInt(num)
     $.post("/setLastVideoIndex", {index: num}) 
   }
 }
 
 function buildQueue(){
-  $("#main_holder").fadeOut(200)
+  transitionToPlayer()
   let data = static_vars.data
   const parentNode = document.getElementById("queue")
   parentNode.innerHTML = ""
@@ -141,7 +138,12 @@ function buildQueue(){
     }
     parentNode.appendChild(newNode)
   })
-  $("#queue").slideDown(200).css('display', 'flex')
+}
+
+function transitionToPlayer(){
+  $("#main_holder").fadeOut(200)
+  $("#under_player").fadeIn(200).css('display', 'flex')
+  // $("#queue").slideDown(200).css('display', 'flex')
 }
 
 $("#prev_song").click( () =>{prevSong()})
