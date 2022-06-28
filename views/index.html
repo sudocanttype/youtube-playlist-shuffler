@@ -3,31 +3,32 @@
   <head>
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.youtube.com/; style-src 'self' 'unsafe-inline'; script-src-elem 'self' 'sha256-W5uCUvRv/R9bqm1dHPF7VbQ3lTRkc1V+CWdLtwzHQgY=' https://www.youtube.com/; frame-src https://www.youtube.com/; img-src https://www.youtube.com/;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.youtube.com/; style-src 'self' 'unsafe-inline'; script-src-elem 'self' 'sha256-W5uCUvRv/R9bqm1dHPF7VbQ3lTRkc1V+CWdLtwzHQgY=' https://www.youtube.com/; frame-src https://www.youtube.com/; img-src https://www.youtube.com/; style-src-elem 'self' https://fonts.googleapis.com/; font-src https://fonts.gstatic.com/">
     <link href="./stylesheets/styles.css" rel="stylesheet">
     <title>Youtube Shuffler</title>
   </head>
   <body>
     <!-- <svg id="background" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,96L48,101.3C96,107,192,117,288,133.3C384,149,480,171,576,192C672,213,768,235,864,218.7C960,203,1056,149,1152,154.7C1248,160,1344,224,1392,256L1440,288L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" style="--darkreader-inline-fill: #007acc;" data-darkreader-inline-fill=""></path></svg> -->
     <div id="main_holder">
-      <h1>Youtube Shuffler</h1>
       <div id="search_holder">
         <input type="text" id="main_search" value="" placeholder="ENTER A PLAYLIST ID HERE!">
         <button type="button" id="search_button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.031 16.617l4.283 4.282-1.415 1.415-4.282-4.283A8.96 8.96 0 0 1 11 20c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 0 1-1.969 5.617zm-2.006-.742A6.977 6.977 0 0 0 18 11c0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7a6.977 6.977 0 0 0 4.875-1.975l.15-.15z" /></svg></button>
       </div>
+      <button id="resume">Resume Last Session</button>
     </div>
     <div id="loading">
       <p>Hold up...</p>
       <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
     </div>
     <div id="player"></div>
-    <div id="queue"></div>
-    <div id="player_controls">
-      <button id="prev_song"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M8 11.333l10.223-6.815a.5.5 0 0 1 .777.416v14.132a.5.5 0 0 1-.777.416L8 12.667V19a1 1 0 0 1-2 0V5a1 1 0 1 1 2 0v6.333zm9 4.93V7.737L10.606 12 17 16.263z"/></svg></button>
-      <button id="pause_song"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M6 5h2v14H6V5zm10 0h2v14h-2V5z"/></svg></button>
-      <button id="next_song"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M16 12.667L5.777 19.482A.5.5 0 0 1 5 19.066V4.934a.5.5 0 0 1 .777-.416L16 11.333V5a1 1 0 0 1 2 0v14a1 1 0 0 1-2 0v-6.333zm-9-4.93v8.526L13.394 12 7 7.737z"/></svg></button>
+    <div id="under_player">
+      <div id="queue"></div>
+      <div id="player_controls">
+        <button id="prev_song"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M8 11.333l10.223-6.815a.5.5 0 0 1 .777.416v14.132a.5.5 0 0 1-.777.416L8 12.667V19a1 1 0 0 1-2 0V5a1 1 0 1 1 2 0v6.333zm9 4.93V7.737L10.606 12 17 16.263z"/></svg></button>
+        <button id="pause_song"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M6 5h2v14H6V5zm10 0h2v14h-2V5z"/></svg></button>
+        <button id="next_song"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M16 12.667L5.777 19.482A.5.5 0 0 1 5 19.066V4.934a.5.5 0 0 1 .777-.416L16 11.333V5a1 1 0 0 1 2 0v14a1 1 0 0 1-2 0v-6.333zm-9-4.93v8.526L13.394 12 7 7.737z"/></svg></button>
+      </div>
     </div>
-    <button id="resume">Resume Last Session</button>
 
     <!-- You can also require other files to run in this process -->
 
