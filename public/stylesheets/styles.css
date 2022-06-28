@@ -149,13 +149,13 @@ body {
 }
 /*thin scrollbar stuff*/
 ::-webkit-scrollbar {
-  width: 9px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(17, 50, 66, 0.25);
+  background-color: rgba(17, 50, 66, 0.4);
   border-radius: 20px;
   border: transparent;
 }

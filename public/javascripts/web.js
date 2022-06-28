@@ -15,6 +15,7 @@ document.getElementById("search_button").onclick = async function(){
   document.getElementById("player").style.display = "block"
   buildQueue()
 }
+
 document.getElementById("resume").onclick = function(){
   $.post("/getLastPLID", (data, status) => {
       if(data){
@@ -34,6 +35,7 @@ document.getElementById("resume").onclick = function(){
 
 }
 window.addEventListener("keypress", function(event){
+    //disable when its already playing
 		if (event.key === "Enter" && document.getElementById("main_holder").style.display != "none") {
 			event.preventDefault();
 			document.getElementById("search_button").click();
@@ -121,6 +123,7 @@ function selectSong(num){
     //move q position
     static_vars.current_indexed_song = parseInt(num)
     $.post("/setLastVideoIndex", {index: num}) 
+    scrollToCurrentSong()
   }
 }
 
@@ -137,6 +140,27 @@ function buildQueue(){
       selectSong(i)
     }
     parentNode.appendChild(newNode)
+  })
+}
+
+$("#open_queue").click(() => {
+  let targ = $("#queue")
+  if(targ.css("display") == "flex"){
+    $("#queue").fadeOut(200)
+  } else {
+    $("#queue").fadeIn().css('display', 'flex')
+    scrollToCurrentSong()
+  }
+})
+
+function scrollToCurrentSong() {
+  let index = static_vars.current_indexed_song
+  let heightOfObj = $("#queue span").innerHeight() + 2.1 
+
+  document.getElementById("queue").scroll({
+    top: heightOfObj * index,
+    left: 0,
+    behavior: 'smooth'
   })
 }
 
