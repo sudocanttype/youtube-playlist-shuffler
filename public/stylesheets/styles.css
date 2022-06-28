@@ -21,6 +21,7 @@ html {
 }
 body {
   background: black;
+  height: 100%;
 }
 #background {
 	position: fixed;
@@ -65,8 +66,8 @@ body {
 }
 #player {
 	display: none;
-  margin-left: calc(50% - 320px);
-  margin-top: 7%;
+  height: 90%;
+  width: 100%;
 }
 
 #loading {

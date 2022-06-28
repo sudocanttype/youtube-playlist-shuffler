@@ -57,8 +57,8 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
-    height: '390',
-    width: '640',
+    height: window.innerHeight*.7,
+    width: window.innerWidth,
     videoId: '',
     playerVars: {
       'playsinline': 1
@@ -74,11 +74,25 @@ function onPlayerReady(event) {
 }
 
 function onPlayerStateChange(event) {
-  if (event.data == 5){
-    event.target.playVideo()
-  }
-  if (event.data == 0){
-    nextSong()
+  switch (event.data){
+    case 5:
+      event.target.playVideo()
+      break
+    case 4:
+      break
+    case 3:
+      break
+    case 2:
+      document.getElementById("pause_song").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.394 12L10 7.737v8.526L16.394 12zm2.982.416L8.777 19.482A.5.5 0 0 1 8 19.066V4.934a.5.5 0 0 1 .777-.416l10.599 7.066a.5.5 0 0 1 0 .832z"/></svg>'
+      break
+    case 1:
+      document.getElementById("pause_song").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36"><path fill="none" d="M0 0h24v24H0z"/><path d="M6 5h2v14H6V5zm10 0h2v14h-2V5z"/></svg>'
+      break
+    case 0:
+      nextSong()
+      break
+    case -1:
+      break
   }
 }
 
