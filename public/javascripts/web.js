@@ -155,6 +155,7 @@ $("#open_queue").click(() => {
 
 function scrollToCurrentSong() {
   let index = static_vars.current_indexed_song
+  //just 2 doesnt seem to work, add .1 and it just works ig
   let heightOfObj = $("#queue span").innerHeight() + 2.1 
 
   document.getElementById("queue").scroll({
