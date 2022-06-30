@@ -27,6 +27,9 @@ document.getElementById("resume").onclick = function(){
             selectSong(index)
             buildQueue()
             document.getElementById("resume").style.display = "none"
+            $.post("/getVideoTime", (vidTime) => {
+              player.seekTo(vidTime)
+            })
           })
         })
     }
@@ -189,6 +192,20 @@ $("#pause_song").click( () => {
 )
 $("#next_song").click(() =>{nextSong()} )
 
+$("#reshuffle").click(() => {
+
+})
+
+//save current time
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    let formData = new FormData()
+    formData.append('t', player.getCurrentTime())       
+    console.log(formData)
+
+    navigator.sendBeacon('/setVideoTime', formData)
+  }
+});
 //make global editable variables
 class static_vars{
   data = []

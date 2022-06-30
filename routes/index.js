@@ -8,6 +8,7 @@ require('dotenv').config()
 
 const store = new Store()
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // res.render('index', { title: 'express' });
@@ -40,9 +41,21 @@ router.post('/getLastVideoIndex', function (req, res) {
   res.send(returnValues)
 })
 
+router.post('/getVideoTime', function (req, res) {
+  let returnValues = store.get("lastVideoTime")
+  res.send(returnValues)
+})
+
 router.post('/setLastVideoIndex', function (req, res) {
   store.set("prevVidIndex", req.body['index'])
 })
+
+router.post('/setVideoTime', function (req, res) {
+  // store.set("lastVideoTime", req.body['time'])
+  console.log(req)
+  // console.log(res.body['time'])
+})
+
 
 async function handleSubmit(playlistID) {
   static_vars.plID = playlistID
