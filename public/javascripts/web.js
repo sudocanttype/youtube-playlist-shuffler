@@ -206,17 +206,17 @@ $("#reshuffle").click(() => {
 })
 
 //save current time
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') {
-    let headers = {
-      type: "application/json"
-    };
+// document.addEventListener('visibilitychange', () => {
+//   if (document.visibilityState === 'hidden') {
+//     let headers = {
+//       type: "application/json"
+//     };
 
-    let blob = new Blob([JSON.stringify({"t":player.getCurrentTime()})], headers);
-    navigator.sendBeacon("/setVideoTime", blob);
-    // $.post("setVideoTime", {t:player.getCurrentTime()})
-  }
-});
+//     let blob = new Blob([JSON.stringify({"t":player.getCurrentTime()})], headers);
+//     navigator.sendBeacon("/setVideoTime", blob);
+//     // $.post("setVideoTime", {t:player.getCurrentTime()})
+//   }
+// });
 //make global editable variables
 class static_vars{
   data = []

@@ -50,13 +50,13 @@ router.post('/setLastVideoIndex', function (req, res) {
   store.set("prevVidIndex", req.body['index'])
 })
 
-router.post('/setVideoTime', function (req, res) {
-    console.log(req.read())
-    req.on('readable', function(){
-    console.log(req.read());
-    });
-  // store.set("lastVideoTime", req.body['t'])
-})
+// router.post('/setVideoTime', function (req, res) {
+//     console.log(req.read())
+//     req.on('readable', function(){
+//     console.log(req.read());
+//     });
+//   // store.set("lastVideoTime", req.body['t'])
+// })
 
 router.post('/reshufflePL', function (req, res) {
   let PL = store.get("prevPL")
