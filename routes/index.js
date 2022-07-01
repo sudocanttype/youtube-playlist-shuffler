@@ -51,11 +51,20 @@ router.post('/setLastVideoIndex', function (req, res) {
 })
 
 router.post('/setVideoTime', function (req, res) {
-  // store.set("lastVideoTime", req.body['time'])
-  console.log(req)
-  // console.log(res.body['time'])
+    console.log(req.read())
+    req.on('readable', function(){
+    console.log(req.read());
+    });
+  // store.set("lastVideoTime", req.body['t'])
 })
 
+router.post('/reshufflePL', function (req, res) {
+  let PL = store.get("prevPL")
+  PL = shuffleSongs(PL)
+  res.send(PL)
+  store.set("prevPL", PL)
+
+})
 
 async function handleSubmit(playlistID) {
   static_vars.plID = playlistID

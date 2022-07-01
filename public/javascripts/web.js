@@ -37,6 +37,15 @@ document.getElementById("resume").onclick = function(){
 })
 
 }
+
+document.getElementById("reshuffle").onclick = () =>{
+  $.post("/reshufflePL", (new_pl) => {
+    static_vars.data = new_pl
+    selectSong(0)
+    buildQueue()
+  })
+
+}
 window.addEventListener("keypress", function(event){
     //disable when its already playing
 		if (event.key === "Enter" && document.getElementById("main_holder").style.display != "none") {
@@ -199,11 +208,13 @@ $("#reshuffle").click(() => {
 //save current time
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') {
-    let formData = new FormData()
-    formData.append('t', player.getCurrentTime())       
-    console.log(formData)
+    let headers = {
+      type: "application/json"
+    };
 
-    navigator.sendBeacon('/setVideoTime', formData)
+    let blob = new Blob([JSON.stringify({"t":player.getCurrentTime()})], headers);
+    navigator.sendBeacon("/setVideoTime", blob);
+    // $.post("setVideoTime", {t:player.getCurrentTime()})
   }
 });
 //make global editable variables
