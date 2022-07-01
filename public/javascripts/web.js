@@ -201,9 +201,6 @@ $("#pause_song").click( () => {
 )
 $("#next_song").click(() =>{nextSong()} )
 
-$("#reshuffle").click(() => {
-
-})
 
 //save current time
 // document.addEventListener('visibilitychange', () => {
